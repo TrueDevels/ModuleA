@@ -15,11 +15,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.misha.modulea.MESSAGE";
     Button btn;
-    TextView tv;
+    EditText edt;
     MainActivity context = this;
 
     public void sendMessage(View view) {
@@ -36,12 +40,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btn = (Button) findViewById(R.id.button);
-        tv = (TextView) findViewById(R.id.editText);
+        edt = findViewById(R.id.editText);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         View.OnClickListener oclbtn = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                String date_local = dateFormat.format(date);
+
+                DatabaseInintializer.populateSync(AppDatabase.getAppDatabase(context));
+
+                DatabaseInintializer.addLink(AppDatabase.getAppDatabase(context),new com.example.misha.modulea.modul.Link(edt.getText().toString(),1,date_local));
+                int count = DatabaseInintializer.getCount(AppDatabase.getAppDatabase(context));
                 Intent intent = new Intent(context, AnotherActivity.class);
                 startActivity(intent);
 //                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.moduleb");

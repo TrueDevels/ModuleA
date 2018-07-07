@@ -7,28 +7,36 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import com.example.misha.modulea.modul.Link;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnotherActivity extends AppCompatActivity {
-    String[] names = {"Иван", "Марья", "Петр", "Антон", "Даша", "Борис",
-            "Костя", "Игорь", "Анна", "Денис", "Андрей"};
+    List<Link> links = new ArrayList<Link>();
+    Link[] ar; //= {new Link("some_url",1,"23.09"),new Link("some_url2",2,"43")};
     ImageButton button;
     AnotherActivity context = this;
-    LinkAdapter<String> linkAd;
+    LinkAdapter linkAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_another);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView lv = (ListView) findViewById(R.id.listview); // находим список
+       links = DatabaseInintializer.getLinks(AppDatabase.getAppDatabase(this));
+       // ar = new Link[links.size()];
+       // ar = (Link[]) links.toArray();
+      //  Link[] ar = links.toArray();
+        ArrayList<Link> local = new ArrayList<>(links);
+
+        ListView lv =  findViewById(R.id.listview); // находим список
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);// создаем адаптер
-        linkAd = new LinkAdapter<>(this, android.R.layout.simple_list_item_1, names);
+        linkAd = new LinkAdapter(this, android.R.layout.simple_list_item_1, local );
         lv.setAdapter(linkAd);   // присваиваем адаптер списку
     }
     @Override
