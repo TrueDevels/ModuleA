@@ -7,11 +7,11 @@
         android:title="Arrow"
         app:showAsAction="always" />
     <item
-        android:id="@+id/item2"
+        android:id="@+id/date"
         android:title="Sort by date"
         app:showAsAction="never" />
     <item
-        android:id="@+id/item"
+        android:id="@+id/status"
         android:title="Sort by status"
         app:showAsAction="never" />
 </menu>

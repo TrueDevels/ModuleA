@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
                 String date_local = dateFormat.format(date);
-
                 DatabaseInintializer.populateSync(AppDatabase.getAppDatabase(context));
 
                 DatabaseInintializer.addLink(AppDatabase.getAppDatabase(context),new com.example.misha.modulea.modul.Link(edt.getText().toString(),1,date_local));

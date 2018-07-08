@@ -16,8 +16,6 @@ public interface LinkDao {
     @Query("SELECT * FROM link where just_link LIKE  :link AND date LIKE :date")
     Link find(String link, String date);
 
-
-
     @Insert
     void insertAll(Link... links);
 
